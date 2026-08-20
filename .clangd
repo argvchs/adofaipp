@@ -1,0 +1,13 @@
+CompileFlags:
+    Add:
+        - -std=c++23
+        - -Wall
+        - -Wextra
+        - -O2
+        - -march=native
+Diagnostics:
+    MissingIncludes: Strict
+InlayHints:
+    Enabled: false
+SemanticTokens:
+    DisabledKinds: Operator
