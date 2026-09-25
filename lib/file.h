@@ -20,6 +20,26 @@ inline std::vector<double> read_angle_data(const char *src) {
         }
     return v;
 }
+inline void inject(const char *src, const char *dst, std::string_view actions,
+                   std::string_view decorations) {
+    std::ifstream in(src, std::ios::binary | std::ios::ate);
+    std::ofstream out(dst);
+    std::string s;
+    std::streamsize n = in.tellg();
+    s.resize(n);
+    in.seekg(std::ios::beg);
+    in.read(s.data(), n);
+    in.close();
+    std::size_t p = s.find("\"actions\":");
+    p = s.find('[', p) + 1;
+    out << std::string_view(s.data(), s.data() + p);
+    out << actions;
+    std::size_t q = s.find("\"decorations\":", p);
+    q = s.find('[', q) + 1;
+    out << std::string_view(s.data() + p, s.data() + q);
+    out << decorations;
+    out << std::string_view(s.data() + q, s.data() + n);
+}
 inline void inject(const char *src, const char *dst, const std::vector<double> &angle_data,
                    std::string_view actions, std::string_view decorations) {
     std::ifstream in(src, std::ios::binary | std::ios::ate);

@@ -1,6 +1,6 @@
 #include "lib/actions.h"
 #include "lib/file.h"
-#include "lib/notes.h"
+#include "notes.h"
 #include <algorithm>
 #include <cmath>
 #include <numbers>
